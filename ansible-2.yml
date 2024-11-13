@@ -1,0 +1,37 @@
+---
+- name: case-ansible
+  hosts: redhat                                # Hangi hostlarda çalıştırılacak
+  become: yes                                  # Root yetkisiyle çalıştırılacak
+
+  tasks:
+      - name: Güncellemeleri Kontrol Et ve Yükle
+        yum:
+          update_cache: yes                    # Paket listelerini günceller
+          upgrade: yes                         # Yüklü paketleri günceller
+
+      - name: /tmp/my_directory dizinini oluştur.
+        file:
+          path: /tmp/my_directory
+          state: directory                     # Dizin oluşturulacak
+          mode: '0755'                         # Dizin için güvenli izinler
+
+      - name: /tmp/my_file adında dosya oluştur
+        file:
+          path: /tmp/my_file
+          state: touch                         # Dosyayı oluşturur
+          mode: '0644'                         # Dosya için güvenli izinler
+
+      - name: httpd kurulumu
+        yum:
+          name: httpd                          # Debian/Ubuntu sistemlerinde apache2 kullanılır
+          state: latest                        # Apache'in en son sürümünü yükler
+
+      - name: htop kurulum
+        yum:
+          name: htop
+          state: present                       # Yüklü değilse htop'u yükler
+
+      - name: unzip kurulum
+        yum:
+          name: unzip
+          state: present                       # Yüklü değilse unzip'i yükler

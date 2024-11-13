@@ -1,0 +1,33 @@
+################################################################################################################
+Ansible ın syntax(sözdizimi)da  belirli bir işlemden sonra komut kullanılır.
+
+Yani örnek olarak  
+ansible [host-pattern] -m [module] -a “[module options]”
+
+#burdaki  
+-m host-pattern komutun gönderilceği grubu belirtir.
+-a hangi modülün kullanılaçağını belirtir.
+
+
+
+
+
+ansible all -m ping       #Ansible daki tüm gruplara ping gönderir.
+
+ansible ubuntu -m ping    #Ansible daki ubuntu grubundakilere ping gönderir.
+
+
+
+ansible ubuntu -b -m apt -a "update_cache=yes upgrade=dist"                          # apt modülü kullanarak ubuntu sunucularda güncelleme yapar
+ansible ubuntu -b -m apt -a "update_cache=yes name=apache2 state=lastest"            # apt modülü kullanarak ubuntu sunuculara apache2 kurulur.
+ansible ubuntu -b -m  shell -a "apt update && apt upgrade && apt install apache2"    # shell modülünü kullanarak ubuntu sunucularda güncelleme yapar ve apache2 kurulur.
+ 
+
+
+ansible centos -b -m  shell -a "yum update -y && yum upgrade -y  && yum install httpd"    # shell modülü kullanarak centos sunucularda  güncelleme yapılır ve apache2 kurulur.
+ansible centos -b -m yum -a "name=* state=latest"                                         # yum modülü kullanarak centos sunucularda güncelleme yapar
+ansible centos -b -m yum -a "name=epel-release state=present"	                          # yum modülü kullanarak epel release kurar.
+ansible centos -b -m yum -a "name=httpd state=latest"                                     # yum modülü kullanarak centos sunucularda apache2 kurulur.
+
+	
+ansible centos -b -m firewalld	-a "port=80/tcp state=enable permanet=true"      # firewalld modülü kullanarak 80 portunu açtık.

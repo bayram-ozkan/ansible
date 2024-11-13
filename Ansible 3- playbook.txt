@@ -1,0 +1,9 @@
+Yaml dosyasında
+
+-name             #Görev adı yazılır
+ hosts            #Yönetilecek hostlar yazılır
+ become           #Root olması gerekdiği yazılır(yes,no)
+ 
+En sonunda çalıştırmak için 
+
+ansible-playbook dosya_adı.yml

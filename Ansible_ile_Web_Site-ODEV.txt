@@ -1,0 +1,4 @@
+1. Bana Ubuntu Server ve Centos 7 üzerinde çalışacak şekilde ansible playbook kullanarak sıfır dokunuş ile kurulacak şekilde;
+ Devops eğitim içeriğinin yer alacağı en az 4 sayfadan oluşacak bir site hazırlayın. 
+
+Örnek Olarak her ünite ayrı bir sayfada olabilir.

@@ -1,0 +1,32 @@
+---
+- name: CentOS Sunucusunu Yapılandırma
+  hosts: centos
+  become: yes
+  tasks:
+    - name: EPEL Depoyu Yükle
+      yum:
+        name: epel-release
+        state: present
+
+    - name: Güncellemeleri Kontrol Et ve Yükle
+      yum:
+        name: '*'
+        state: latest
+
+    - name: Apache Sunucu Kurulumu
+      yum:
+        name: httpd
+        state: present
+
+    - name: Apache Servisini Başlat ve Başlangıçta Otomatik Olarak Ayarla
+      service:
+        name: httpd
+        state: started
+        enabled: yes
+
+    - name: Firewall Ayarları - HTTP/TCP Port 80
+      firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: yes

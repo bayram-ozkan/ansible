@@ -1,0 +1,101 @@
+ANSIBLE
+
+
+
+
+sudo systemctl restart ssh
+
+ROOTPW = $(openssl rand -base64 12)
+
+
+
+
+
+
+Birçok sunucusunun bir ana sunucudan yönetilmesidir.
+
+1- ad-hock kumutlarını kullanarak bash komutlarını kullanarak sistemler yönetilir.Uzaktan komut çalıştırarak toplu yönetim sağlanır.
+
+2- playbook  yaml dosyaları kullanarak yönetim dosyaları.(bash script gibi). Uzaktan toplu işlemleri yapmak içnde playbook lar kullanılır.
+ansible makinede host lar girilir.
+
+
+################################################################################################################################
+*********************ANSIBLE SUNUCU KURMAK İÇİN*********************************************************************************
+
+1. Statik IP ver.
+2. update/upgrade yap
+3. Ansible Server kur. Root a şifre koy
+4. Hosts dosyasına yönetilecek sunuculların IP-HOST  eşleşmesini yaptık
+5. Ansible sunucuda yönetilecek sunucuları grupladık.
+6. Yönetilecek sunuculara statik IP verdik ve root ssh erişimini açtık
+7. Ansbile sunucuda yönetilicek sunucular için SSH  eşleme yaptık.
+
+
+
+*******************************************************************************************************************************
+###############################################################################################################################
+sudo apt update && sudo apt upgrade -y
+
+sudo apt install software-properties-common
+sudo apt-add-repository --yes --update ppa:ansible/ansible
+sudo apt install ansible -y
+
+
+##############################################################################################################################
+
+##Ansible kurulduktan sonra  
+/etc/hosts
+
+192.168.214.10 ansibleserver.academy.local  ansibleserver
+192.168.214.20 devopsubt1.academy.local     devopsubt1
+192.168.214.10 devopsubt2.academy.local     devopsubt2
+192.168.214.10 devopscnt1.academy.local     devopscnt1
+192.168.214.10 devopscnt2.academy.local     devopscnt2
+
+
+##############################################################################################################################
+
+#Yönetilecek  sistemler gruplanır ve eklenir.
+/etc/ansible/hosts 
+
+[ubuntu]
+devopsubt1.academy.local
+devopsubt1.academy.local
+
+
+##############################################################################################################################
+
+##Yönetilecek sistemlerdeki gerekli configürasyonlar yapılır.
+
+>>Statik IP tanımlaması yap
+
+
+>>SSH de  root u aç
+sshd_config dosyasında "PermitRootLogin yes"  
+
+
+>>Sonra her bir makinede host dosyasına ekliyoruz
+/etc/hosts
+
+192.168.214.10 ansibleserver.academy.local  ansibleserver
+192.168.214.20 devopsubt1.academy.local     devopsubt1
+192.168.214.10 devopsubt2.academy.local     devopsubt2
+192.168.214.10 devopscnt1.academy.local     devopscnt1
+192.168.214.10 devopscnt2.academy.local     devopscnt2
+
+##############################################################################################################################
+
+#Ansible makineede  ssh eşleme yapıyoruz
+
+>>bir ssh key oluşturuyoruz
+ssh-keygen
+
+
+>>bu  key i sırayla her makineye gönderiyoruz
+ssh-copy-id root@devopscnt1.academy.local
+
+komutuyla tüm sunuculara SSH denkliği yapıyoruz
+
+
+

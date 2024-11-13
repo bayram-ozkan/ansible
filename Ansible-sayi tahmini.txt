@@ -1,0 +1,29 @@
+---
+- name: Playbook for system update and Apache installation
+  hosts: ubuntu
+  become: yes
+  tasks:
+    - name: Update apt cache
+      apt:
+        update_cache: yes
+
+    - name: Install Apache
+      apt:
+        name: apache2
+        state: present
+
+    - name: Ensure Apache service is running and enabled
+      service:
+        name: apache2
+        state: started
+        enabled: yes
+
+    - name: Copy index.html file
+      template:
+        src: "/playbook/sayibulma/index.html"  # Lokasyonunuz, yerel makinedeki index.html dosyasının yolu
+        dest: "/var/www/html/index.html"  # Hedef dizin, Ubuntu sunucusundaki Apache web sunucusunun ana dizini
+
+    - name: Copy guess.cgi file
+      template:
+        src: "/playbook/sayibulma/guess.cgi"  # Lokasyonunuz, yerel makinedeki guess.cgi dosyasının yolu
+        dest: "/usr/lib/cgi-bin/guess.cgi"  # Hedef dizin, Ubuntu sunucusundaki CGI betiklerinin dizini

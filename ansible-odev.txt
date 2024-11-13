@@ -1,0 +1,14 @@
+Bana centos 7 de ansible playbook kullanarak alat taraftaki maddeleri yerine getirecek bir playbook yaml hazırlar mısınız?
+
+1. update, upgrade yapacak
+2. epel release kuracak
+3. Apache kuracak
+4. php kodlarının çalışabilmesi için gerekli php paketlerinin tamamını kuracak.
+5. Beş sayfadan oluşacak bir web sitesi oluşturacak
+6. Bu web sitesinin birinci sayfasında "CB ACADEMY HOŞ GELDINIZ " başlığı kırmızı ile büyük puntolarla yazacak.
+7. siğer dört sayfaya link olacak. birinci sayfa linki "MCSE Kursu" adında olacak, ikinci sayfa linki "DOCKER KUBERNATE KURSU" şeklinde olcak, üçüncü sayfa linki "RED HAT Linux Kursu" şeklinde olacak. Dördüncü sayfa linki "AZURE KURSU" şeklinde olacak.
+8. diğer sayfaların başlıkları linklerin adı şeklinde verilecek. Hersayfada diğer sayfalara ve ana sayfaya link olcak.
+9. apache servislerini start edecek
+10. apache servislerini enable edecek.
+11. firewalld üzerinde 80 ve 443 portunu açacak.
+12. selinux disable edecek.

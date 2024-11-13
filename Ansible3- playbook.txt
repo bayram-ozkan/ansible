@@ -1,0 +1,30 @@
+---
+- name: Ubuntu Sunucusunu Yapılandırma
+  hosts: ubuntu                                    
+  become: yes
+  tasks:
+    - name: Güncellemeleri Kontrol Et ve Yükle
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Apache Sunucu Kurulumu
+      apt:
+        name: apache2
+        state: present
+
+    - name: Apache Servisini Başlat ve Başlangıçta Otomatik Olarak Ayarla
+      service:
+        name: apache2
+        state: started
+	permanet:true
+        enabled: yes
+
+    - name: Firewall  Ayarları - HTTP/TCP Port 80
+      ufw:
+        rule: allow
+        port: "{{ item }}"
+        proto: tcp
+      with_items:
+        - 80
+        - 443

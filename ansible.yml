@@ -1,0 +1,31 @@
+---
+- name: case-ansible
+  hosts: debian                               # hangi host larda çalıştırılacak 
+  become: yes                                 # root yetkisiyle çalıştırıyor
+
+  tasks:
+      - name: Güncellemeleri Kontrol Et ve Yükle
+        apt:
+          update_cache: yes
+          upgrade: yes
+
+      - name: Dizin oluştur.
+        file:
+          path: /tmp/my_file
+          state: directory  
+          mode: '0777'                        # İzinler için tırnak ekleyebilirsiniz
+
+      - name: Apache kurulumu
+        apt:
+          name: apache2  
+          state: latest                       # Apache'in en son sürümünü yükler
+
+      - name: htop kurulum
+        apt:
+          name: htop
+          state: present                      # htop paketi yüklü mü kontrol eder ve yükler
+
+      - name: unzip kurulum
+        apt:
+          name: unzip
+          state: present                      # unzip paketi yüklü mü kontrol eder ve yükler

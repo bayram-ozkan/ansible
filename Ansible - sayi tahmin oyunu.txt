@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sayı Bulma Oyunu</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    transition: background-color 1s ease; /* Arka plan değişimini yumuşat */
+    background-color: #f3f3f3; /* Arka plan rengi */
+    margin: 0;
+    padding: 0;
+  }
+  #container {
+    margin-top: 50px;
+  }
+  #guessField {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  #guessButton {
+    padding: 8px 16px;
+    font-size: 16px;
+    border-radius: 4px;
+    border: none;
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  #guessButton:hover {
+    background-color: #45a049;
+  }
+  #result {
+    font-size: 1.5rem;
+    margin-top: 20px;
+  }
+  #attempts {
+    font-size: 1.2rem;
+    margin-top: 20px;
+  }
+</style>
+<script>
+  let targetNumber = Math.floor(Math.random() * 100) + 1; // Rasgele sayı
+  let remainingAttempts = 10; // Kalan hakkı takip etmek için değişken
+
+  function checkGuess() {
+    const guess = parseInt(document.getElementById("guessField").value);
+    const resultParagraph = document.getElementById("result");
+
+    if (isNaN(guess) || guess < 1 || guess > 100) {
+      resultParagraph.textContent = "Lütfen 1 ile 100 arasında geçerli bir sayı girin.";
+    } else {
+      remainingAttempts--; // Her tahminde bir hakkı azalt
+
+      if (guess === targetNumber) {
+        resultParagraph.textContent = `Tebrikler! Doğru sayıyı buldun: ${targetNumber}`;
+        resultParagraph.style.color = "green";
+        disableInput();
+      } else if (guess < targetNumber) {
+        resultParagraph.textContent = "Daha büyük bir sayı deneyin.";
+        resultParagraph.style.color = "blue";
+      } else {
+        resultParagraph.textContent = "Daha küçük bir sayı deneyin.";
+        resultParagraph.style.color = "red";
+      }
+
+      if (remainingAttempts === 0) {
+        resultParagraph.textContent = `Hakkınız kalmadı. Doğru sayı ${targetNumber} idi.`;
+        disableInput();
+      } else {
+        document.getElementById("attempts").textContent = `Kalan Hakkınız: ${remainingAttempts}`;
+      }
+
+      changeBackgroundColor(); // Arka plan rengini değiştir
+    }
+  }
+
+  function disableInput() {
+    document.getElementById("guessField").disabled = true;
+    document.getElementById("guessButton").disabled = true;
+  }
+
+  function changeBackgroundColor() {
+    const colors = ["#FF5733", "#33FF57", "#5733FF", "#33FFFF", "#FFFF33"]; // Rastgele renkler
+    const randomColor = colors[Math.floor(Math.random() * colors.length)]; // Rasgele bir renk seç
+    document.body.style.backgroundColor = randomColor; // Arka plan rengini değiştir
+  }
+</script>
+</head>
+<body>
+  <h1 style="color: #333;">Sayı Bulma Oyunu</h1>
+  <div id="container">
+    <p style="color: #555;">Bir sayı girin (1 ile 100 arasında):</p>
+    <input type="text" id="guessField">
+    <button id="guessButton" onclick="checkGuess()">Tahmin Et</button>
+    <p id="result"></p>
+    <p id="attempts">Kalan Hakkınız: 10</p>
+  </div>
+</body>
+</html>
