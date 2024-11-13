@@ -29,7 +29,7 @@
       - name: htop kurulum
         yum:
           name: htop
-          state: present                       # Yüklü değilse htop'u yükler
+          state: present                       # Yüklü değilse htop'u yükler default u present dir
 
       - name: unzip kurulum
         yum:
